@@ -1,448 +1,250 @@
-## Series Context
+# Part 2: Git vs GitHub — Understanding the Documentation Workflow
 
-In Part 2, we analyzed documentation as a workflow system.
-
-We mapped how content moves from draft to production:
-
-Draft → Visible → Review → Publish.
-
-We clarified how Git and GitHub coordinate that movement across environments.
-
-But workflow alone does not explain structure.
-
-What moves through that system is not text — it is versioned state.
-
-Until that distinction is clear, documentation remains file-based rather than system-based.
-
-Part 3 focuses on that structural layer.
-
-This is the shift from editing files to managing versions.
+**Series:** Git & GitHub for Technical Writers
+**Status:** ✅ Published
+**Hashnode:** [Read on Hashnode](https://git-and-github-for-technical-writers.hashnode.dev/git-vs-github-for-technical-writers-understanding-the-documentation-workflow)
 
 ---
 
-# The Real Shift: Files vs Versions
+## Overview
 
-Most writers think in files.
+In Part 1, we covered Git fundamentals — how it tracks changes, records commits, and allows you to work safely on your local machine.
 
-- “I updated the installation guide.”
-- “I revised the API page.”
-- “I fixed a section.”
+This article moves from local version control to collaborative workflow.
 
-Git does not think in files.
+By the end of this article you will understand:
 
-Git thinks in changesets.
-
-It asks:
-
-- What changed?
-- Why did it change?
-- When did it change?
-- Who changed it?
-
-The unit of thinking moves from file editing to version management.
-
-That shift is foundational.
+- The precise difference between Git and GitHub
+- How documentation moves from private draft to shared production
+- The four-phase workflow technical writers follow in Docs-as-Code environments
+- The commands that connect your local machine to your team
 
 ---
 
-# Editing Is Linear. Versioning Is Structured.
+## The Problem This Article Solves
 
-Traditional editing workflow:
+You can write clean commits.
+You can create organised branches.
+You can maintain a complete local history.
 
-File → Modify → Save → Overwrite.
+But if your documentation never leaves your laptop, collaboration never begins.
 
-Version-controlled workflow:
+This is where GitHub enters the picture.
 
-Edit → Stage → Commit → Compare → Review → Merge.
-
-You are no longer replacing content.
-
-You are creating a structured timeline of intentional states.
-
-Git internally stores commits in a directed acyclic graph (DAG).
-For documentation workflows, it’s often more useful to think of that structure as a sequence of documentation states.
-
-Each commit represents:
-
-- A snapshot
-- A decision
-- A historical checkpoint
-- A recoverable configuration
-
-Documentation becomes temporal — not metaphorically, but architecturally.
+Understanding the difference between Git and GitHub is not about comparing tools. It is about understanding how documentation moves from private draft to shared production.
 
 ---
 
-# What Is a Documentation State?
+## Git vs GitHub — The Clear Distinction
 
-A **documentation state** is the complete, versioned snapshot of documentation at a specific commit in time.
+| Function | Git | GitHub |
+|----------|-----|--------|
+| Tracks file changes | ✔ | |
+| Records version history | ✔ | |
+| Works offline | ✔ | |
+| Stores repository online | | ✔ |
+| Enables team collaboration | | ✔ |
+| Manages Pull Requests | | ✔ |
+| Provides review tools | | ✔ |
 
-It is not a single file.
-It is not a paragraph.
-It is the entire documentation system as it existed at that moment.
+Git manages change history on your local machine.
+GitHub manages team workflow in the cloud.
+
+Both are necessary in a professional documentation workflow. Git can exist without GitHub. GitHub cannot exist without Git.
+
+---
+
+## The Documentation Workflow: From Laptop to Live
+
+This is the practical sequence technical writers follow in Docs-as-Code environments. Each phase has a clear purpose and a defined boundary.
+
+---
+
+### Phase 1 — Local Drafting
+
+You begin on your local machine.
 
 ```bash
-# View the history of documentation states
-git log
+# Edit your Markdown files, then stage and commit your changes
+git add filename.md
+git commit -m "Add authentication section to API quickstart guide"
+```
 
-Each entry in git log represents a new documentation state.
+At this stage, your work is entirely private. No one else can see it. This is your structured drafting environment — version-controlled and recoverable at any point.
 
-# Compare your current working state with the last commit
-git diff
+---
 
+### Phase 2 — Push to GitHub
 
-This command shows exactly how one state differs from another.
+When you are ready to share your work, push your branch to the remote repository:
 
-Thinking in states changes how you edit.
+```bash
+git push origin branch-name
+```
 
-Instead of asking:
+> **What `git push` does:** It uploads the commits from your local branch to the matching branch on GitHub, making your work visible to the rest of your team for the first time.
 
+After pushing:
 
+- Your team can see your branch
+- Your changes are backed up online
+- Collaboration becomes possible
 
-“Did I update the file?”
+Your documentation has moved from local draft to shared workspace.
 
-You begin asking:
+---
 
+### Phase 3 — Pull Request and Review
 
+A **Pull Request (PR)** is a formal proposal to merge your branch into the `main` version of the documentation. This is where GitHub becomes essential to the workflow.
 
-“What new state am I creating?”
+Inside a Pull Request, your team can:
 
-That shift aligns documentation with how software releases are versioned.
+- View the **Diff** — a line-by-line comparison where additions appear in green and deletions in red
+- Leave comments on specific lines
+- Suggest edits directly in the file
+- Approve the changes or request revisions
 
+The Diff is particularly powerful for documentation review. It isolates exactly what changed, which allows reviewers to focus on the delta rather than rereading the entire document.
 
+For technical writers, this replaces the cycle of emailing documents back and forth. Discussion happens directly around the content — transparently, traceably, and permanently recorded in the repository history.
 
-Atomic Change: A Workflow Discipline, Not a Style Preference
+---
 
-Atomic change means a single commit represents one logical unit of work.
+### Phase 4 — Merge to Main
 
-Not one file.
+Once a Pull Request is reviewed and approved, it is merged into the `main` branch.
 
-Not one page.
+At this point:
 
-One intention.
+- Your changes become part of the official documentation
+- The repository history updates permanently
+- The team works from the new version going forward
 
-Consider this non-atomic commit:
+In many Docs-as-Code environments, merging to `main` automatically triggers a CI/CD pipeline that rebuilds and publishes the live documentation site. Merge often equals publish.
 
-# ❌ Non-atomic commit
-git commit -m "update docs for release"
+Documentation has now completed its full journey:
 
+```
+Draft → Reviewed → Approved → Production
+```
 
-Inside that single commit:
+---
 
+## The End-to-End Workflow
 
+```
+Edit → Commit → Push → Pull Request → Review → Merge
+```
 
+| Stage | Purpose |
+|-------|---------|
+| **Edit** | Create or update documentation content |
+| **Commit** | Record intentional changes with a descriptive message |
+| **Push** | Share your branch with the team on GitHub |
+| **Pull Request** | Formally propose your changes for review |
+| **Review** | Validate accuracy, clarity, and completeness |
+| **Merge** | Publish approved content to the main version |
 
+---
 
-A deprecated API parameter was removed.
+## Why This Workflow Matters
 
+Before Git and GitHub workflows, documentation commonly lived in shared drives, email threads, and Google Docs with unclear version history.
 
+The result was predictable:
 
-Formatting was corrected.
+- Conflicting versions with no clear source of truth
+- Approvals that were verbal or buried in email chains
+- Edits lost between versions
+- Persistent confusion about what was final
 
+With Git and GitHub:
 
+| Problem | How Git and GitHub solve it |
+|---------|----------------------------|
+| Conflicting versions | Every change is recorded on a named branch |
+| Unclear approvals | Pull Requests require explicit review and approval |
+| Lost edits | Every commit is permanent and recoverable |
+| No source of truth | `main` is always the authoritative version |
 
-A new onboarding section was added.
+The result is documentation that is controlled, traceable, and intentional at every stage.
 
+---
 
+## Essential Commands for This Workflow
 
-A broken link was fixed.
+### Pull the Latest Version
 
-From a reviewer’s perspective:
+```bash
+git pull
+```
 
+> **What `git pull` does:** It downloads the latest commits from the remote repository on GitHub and merges them into your current local branch. Always run this before starting new work to ensure you are working from the most current version of the documentation.
 
+---
 
+### Create a New Branch
 
+```bash
+git checkout -b feature/update-api-guide
+```
 
-Which change relates to the feature?
+> **What this does:** `git checkout` switches branches. The `-b` flag creates a new branch before switching to it. The name after `-b` is your branch name — use something descriptive that identifies the work you are doing.
 
+Never commit directly to `main`. Always create a branch for new work.
 
+---
 
-Which one introduced risk?
+### Push a Branch to GitHub
 
+```bash
+git push origin branch-name
+```
 
+Uploads your committed changes to GitHub. Replace `branch-name` with the name of your branch.
 
-Which change can be reverted safely?
+---
 
-Now compare that to atomic commits:
+### Check What Has Changed
 
-# ✅ Atomic commits
-git commit -m "docs: remove deprecated 'authToken' parameter from v2 API"
-git commit -m "fix: resolve broken link in troubleshooting guide"
-git commit -m "docs: add onboarding prerequisites section"
+```bash
+git status
+```
 
+Run this before every `git add` and before every `git commit`. It tells you exactly what is modified, what is staged, and what is untracked — without changing anything.
 
-Each commit isolates a decision.
+---
 
-This pattern aligns with the Conventional Commits specification, which standardizes prefixes like docs:, fix:, and feat: to make commit history both machine-readable and human-readable.
+## Common Mistakes and How to Avoid Them
 
-Operationally, atomic change means:
+| Mistake | Consequence | How to avoid it |
+|---------|-------------|-----------------|
+| Not running `git pull` before starting work | You edit an outdated version and create conflicts | Run `git pull` at the start of every working session |
+| Pushing directly to `main` | Unreviewed changes go live immediately | Always work on a named branch |
+| Vague commit messages | Version history becomes meaningless | Describe what the change does, not just that it happened |
+| Oversized Pull Requests | Hard to review, more likely to introduce errors | Keep each PR focused on one logical documentation unit |
 
+---
 
+## Summary
 
+- **Git** manages version history locally — commits, branches, and change records on your machine
+- **GitHub** manages collaboration in the cloud — storage, review, and team workflow
+- Documentation moves through four phases: **Draft → Reviewed → Approved → Production**
+- The end-to-end sequence is: **Edit → Commit → Push → Pull Request → Review → Merge**
+- `git pull` retrieves the latest version from GitHub before you begin work
+- `git checkout -b branch-name` creates a new branch for safe, independent work
+- Pull Requests replace informal review cycles with a structured, traceable process
+- Merging to `main` is the publication step — in many environments it triggers automatic deployment
 
+---
 
-Cleaner git log
+## Next in This Series
 
+→ [Part 3 — From Editing Files to Managing Versions](part-3-versioning.md)
 
+---
 
-Faster PR review
-
-
-
-Easier rollback
-
-
-
-Fewer merge conflicts
-
-
-
-Clear audit trail
-
-Atomic commits reduce cognitive load during review.
-
-They transform documentation from a collection of edits into a sequence of controlled state transitions.
-
-
-
-Reducing Review Friction
-
-Developers experience friction when documentation PRs:
-
-
-
-
-
-Bundle unrelated changes
-
-
-
-Use vague commit messages
-
-
-
-Mix formatting, restructuring, and feature updates
-
-Version thinking addresses this directly.
-
-When documentation changes are atomic:
-
-
-
-
-
-Reviewers scan diffs faster (git diff)
-
-
-
-Changes are easier to validate
-
-
-
-Rollbacks target specific concerns
-
-
-
-Discussion stays focused
-
-Documentation becomes aligned with the pipeline instead of trailing behind it.
-
-
-
-Reversibility Is Structural, Not Emotional
-
-Version control reduces fear — not because it “feels safe,” but because of how it is built.
-
-Git does not overwrite history.
-
-It stores snapshots in a directed graph of commits.
-
-Each commit references a previous documentation state.
-
-# Safely reverse a specific documentation state
-git revert <commit-hash>
-
-
-git revert does not delete history.
-
-It creates a new commit that reverses the specified change.
-
-The previous state remains preserved.
-
-This guarantees:
-
-
-
-
-
-Mistakes are traceable
-
-
-
-Bad changes are reversible
-
-
-
-History remains intact
-
-
-
-No information is silently destroyed
-
-Over time, writers internalize this structure.
-
-Reversibility encourages confident refactoring because every documentation state is preserved.
-
-
-
-From Writer to Documentation State Manager
-
-In a Docs-as-Code environment, the technical writer is not simply editing content.
-
-You are:
-
-
-
-
-
-Managing documentation states
-
-
-
-Structuring change history
-
-
-
-Participating in release discipline
-
-
-
-Reducing review friction
-
-Documentation becomes part of the build ecosystem.
-
-Version thinking aligns it with the development lifecycle.
-
-
-
-
-
-Key Takeaway
-
-You are not just editing text.
-
-You are managing change.
-
-
-
-A Practical Discipline to Start Today
-
-To internalize version thinking:
-
-
-
-
-
-Make smaller commits.
-
-
-
-Separate unrelated changes.
-
-
-
-Write precise commit messages.
-
-
-
-Run git diff before committing to review your own changes.
-
-
-
-Think in change units, not page updates.
-
-Before committing, ask:
-
-What new documentation state am I creating?
-
-If the answer is unclear, the commit is too large.
-
-
-
-Why This Matters in Fast-Moving Teams
-
-In teams shipping weekly — or daily — documentation drift is real.
-
-Without version discipline:
-
-
-
-
-
-Docs fall behind code
-
-
-
-Context disappears
-
-
-
-Reviews slow down
-
-
-
-History becomes noisy
-
-With version discipline:
-
-
-
-
-
-Every change is logged
-
-
-
-Every state is recoverable
-
-
-
-Every modification is attributable
-
-
-
-Every version is traceable
-
-Documentation becomes structured, not fragile.
-
-
-
-What’s Next
-
-If Part 2 focused on workflow mechanics,
-
-Part 3 focused on structural integrity.
-
-Documentation is not merely edited.
-
-It is versioned into states.
-
-And those states require validation.
-
-In the next article, we examine how Pull Requests operate as editorial control systems — the mechanism by which documentation state becomes approved production state.
-
-Workflow explains movement.
-
-Versioning explains structure.
-
-Governance explains control.
-
-That is the progression.
-
-
-
-Discussion
-
-How does your team handle documentation commits?
-
-Are changes atomic and intentional — or bundled into larger feature PRs?
+*Written by Douglas Ebhoman — Technical Writer & Documentation Specialist*
+*[LinkedIn](https://linkedin.com/in/douglas-ebhoman-757329289) · [Hashnode](https://git-and-github-for-technical-writers.hashnode.dev)*
