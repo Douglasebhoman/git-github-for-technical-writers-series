@@ -34,7 +34,7 @@ No prior experience with Git, GitHub, or the command line is assumed.
 ## Repository Structure
 
 ```
-git-github-for-technical-writers/
+git-github-for-technical-writers-series/
 ├── README.md                       ← Series index (you are here)
 ├── CONTRIBUTING.md                 ← How to suggest corrections or improvements
 ├── docs/
