@@ -47,8 +47,9 @@ git-github-for-technical-writers-series/
 │   ├── part-5-cicd-pipelines.md
 │   └── part-6-repo-architecture.md
 └── images/
-    ├── cicd-pipeline-diagram.png
-    └── (supporting diagrams per article)
+    ├── cicd-pipeline-diagram.png       ← Part 5 ── CI/CD Pipeline
+    ├── diataxis-framework-diagram.svg   ← Part 6  ── repo-architecture.md
+    └── (All diagrams are referenced in the relevant docs/ articles using the relative paths)
 ```
 
 ---
