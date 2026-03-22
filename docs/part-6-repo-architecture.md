@@ -97,7 +97,7 @@ It separates documentation into four distinct types, each serving a different re
 | Reference | Provide precise technical details |
 | Concepts | Explain how the system works |
 
-![The Diátaxis framework — a two-by-two grid showing Tutorials, Concepts, How-To Guides, and Reference organised by practical/theoretical and learning/working axes.](../images/diataxis-framework-diagram.svg)
+![The Diátaxis framework — a two-by-two grid showing Tutorials, Concepts, How-To Guides, and Reference organised by practical/theoretical and learning/working axes.](/images/diataxis-framework-diagram.svg)
 ---
 
 ### Tutorials
