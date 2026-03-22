@@ -1,1 +1,68 @@
 
+site_name: Git & GitHub for Technical Writers
+site_description: A structured six-part documentation series explaining Git and GitHub workflows for technical writers — written in plain language, without assuming a software development background.
+site_author: Douglas Ebhoman
+site_url: https://douglasebhoman.github.io/git-github-for-technical-writers-series
+
+repo_name: Douglasebhoman/git-github-for-technical-writers-series
+repo_url: https://github.com/Douglasebhoman/git-github-for-technical-writers-series
+
+theme:
+  name: material
+  palette:
+    - scheme: slate
+      primary: custom
+      accent: custom
+  font:
+    text: Roboto
+    code: Roboto Mono
+  features:
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+
+extra_css:
+  - stylesheets/extra.css
+
+nav:
+  - Home: index.md
+  - Introduction: introduction.md
+  - Part 1 — Git Basics: part-1-git-basics.md
+  - Part 2 — Git vs GitHub: part-2-git-vs-github.md
+  - Part 3 — Managing Versions: part-3-versioning.md
+  - Part 4 — Pull Requests: part-4-pull-requests.md
+  - Part 5 — CI/CD Pipelines: part-5-cicd-pipelines.md
+  - Part 6 — Documentation Architecture: part-6-repo-architecture.md
+
+docs_dir: docs
+
+markdown_extensions:
+  - admonition
+  - tables
+  - attr_list
+  - def_list
+  - footnotes
+  - toc:
+      permalink: true
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.superfences
+  - pymdownx.inlinehilite
+
+plugins:
+  - search
+
+extra:
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/Douglasebhoman
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/douglas-ebhoman-757329289
+    - icon: fontawesome/solid/globe
+      link: https://douglasebhoman.com
+
+copyright: Copyright &copy; 2025 Douglas Ebhoman
