@@ -44,7 +44,7 @@ This sequence is automated through **Continuous Integration / Continuous Deploym
 
 The diagram below shows the complete lifecycle of documentation in a Docs-as-Code system — from the moment you start writing to the moment a user reads the result.
 
-![The Docs-as-Code Delivery Pipeline showing seven stages: Write, Version, Validate, Build, Test, Deploy, and Live Site.](/images/cicd-pipeline-diagram.png)
+![The Docs-as-Code Delivery Pipeline showing seven stages: Write, Version, Validate, Build, Test, Deploy, and Live Site.](images/cicd-pipeline-diagram.png)
 
 The pipeline has three distinct layers of responsibility:
 
