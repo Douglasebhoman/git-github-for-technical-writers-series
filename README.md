@@ -4,6 +4,8 @@ A structured documentation series explaining Git and GitHub workflows for techni
 
 This repository is the primary source for all articles in the series. Each article is maintained here as a Markdown file and mirrored on [Hashnode](https://git-and-github-for-technical-writers.hashnode.dev) for public readership.
 
+📖 **Read the live documentation site →** https://douglasebhoman.github.io/git-github-for-technical-writers-series
+
 ---
 
 ## Who This Series Is For
@@ -22,23 +24,26 @@ No prior experience with Git, GitHub, or the command line is assumed.
 
 | Part | Title | Status |
 |------|-------|--------|
-|   | [introduction](docs/Introduction.md)
+| 0 | [Introduction](docs/introduction.md) | ✅ Published |
 | 1 | [Git Basics for Technical Writers](docs/part-1-git-basics.md) | ✅ Published |
 | 2 | [Git vs GitHub — Understanding the Documentation Workflow](docs/part-2-git-vs-github.md) | ✅ Published |
 | 3 | [From Editing Files to Managing Versions](docs/part-3-versioning.md) | ✅ Published |
 | 4 | [Pull Requests — Controlling Documentation State](docs/part-4-pull-requests.md) | ✅ Published |
 | 5 | [CI/CD for Technical Writers — How Documentation Moves from Repository to Production](docs/part-5-cicd-pipelines.md) | ✅ Published |
-| 6 | [Documentation Repository Architecture — Structuring Docs That Scale](docs/part-6-repo-architecture.md) |✅ Published   |
+| 6 | [Documentation Repository Architecture — Structuring Docs That Scale](docs/part-6-repo-architecture.md) | ✅ Published |
 
 ---
 
 ## Repository Structure
-
 ```
 git-github-for-technical-writers-series/
-├── README.md                       ← Series index (you are here)
-├── CONTRIBUTING.md                 ← How to suggest corrections or improvements
+├── README.md                        ← Series index (you are here)
+├── CONTRIBUTING.md                  ← How to suggest corrections or improvements
+├── mkdocs.yml                       ← MkDocs configuration for the live site
 ├── docs/
+│   ├── images/
+│   │   ├── cicd-pipeline-diagram.png      ← Part 5 — CI/CD Pipeline
+│   │   └── diataxis-framework-diagram.svg ← Part 6 — Documentation Architecture
 │   ├── introduction.md
 │   ├── part-1-git-basics.md
 │   ├── part-2-git-vs-github.md
@@ -46,10 +51,9 @@ git-github-for-technical-writers-series/
 │   ├── part-4-pull-requests.md
 │   ├── part-5-cicd-pipelines.md
 │   └── part-6-repo-architecture.md
-└── images/
-    ├── cicd-pipeline-diagram.png       ← Part 5 ── CI/CD Pipeline
-    ├── diataxis-framework-diagram.svg   ← Part 6  ── repo-architecture.md
-    └── (All diagrams are referenced in the relevant docs/ articles using the relative paths)
+└── .github/
+    └── workflows/
+        └── deploy.yml               ← GitHub Actions workflow for automated deployment
 ```
 
 ---
@@ -60,8 +64,9 @@ This repository follows a Docs-as-Code publishing workflow:
 
 1. Each article is drafted and revised in the `docs/` folder
 2. Changes are committed to the `main` branch with descriptive commit messages
-3. Once an article is ready for publication, it is mirrored to [Hashnode](https://git-and-github-for-technical-writers.hashnode.dev)
-4. Any post-publication corrections are made here first, then updated on Hashnode
+3. GitHub Actions automatically builds and deploys the site to GitHub Pages on every push
+4. Once an article is ready for public readership, it is mirrored to [Hashnode](https://git-and-github-for-technical-writers.hashnode.dev)
+5. Any post-publication corrections are made here first, then updated on Hashnode
 
 This means the GitHub repository always reflects the most current, authoritative version of each article.
 
@@ -69,7 +74,7 @@ This means the GitHub repository always reflects the most current, authoritative
 
 ## Reading Order
 
-If you are new to this series, start with Part 1 and read sequentially. Each article builds directly on the concepts introduced in the previous one.
+If you are new to this series, start with the Introduction and read sequentially. Each article builds directly on the concepts introduced in the previous one.
 
 The series follows a single thread:
 
@@ -81,9 +86,13 @@ By the end of Part 6, you will understand the complete lifecycle of documentatio
 
 ## Live Reading
 
-Prefer to read on a blog platform? The full series is available on Hashnode:
+Prefer a polished reading experience? The full series is available as a live static site built with MkDocs and deployed via GitHub Pages:
 
-🔗 [git-and-github-for-technical-writers.hashnode.dev](https://git-and-github-for-technical-writers.hashnode.dev)
+📖 [douglasebhoman.github.io/git-github-for-technical-writers-series](https://douglasebhoman.github.io/git-github-for-technical-writers-series)
+
+Also available on Hashnode:
+
+✍️ [git-and-github-for-technical-writers.hashnode.dev](https://git-and-github-for-technical-writers.hashnode.dev)
 
 ---
 
