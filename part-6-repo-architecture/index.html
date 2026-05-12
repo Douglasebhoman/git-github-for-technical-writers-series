@@ -1,0 +1,1342 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A six-part Docs-as-Code series explaining Git and GitHub workflows for technical writers, written in plain language, without assuming a software development background.">
+      
+      
+        <meta name="author" content="Douglas Ebhoman">
+      
+      
+        <link rel="canonical" href="https://douglasebhoman.com/git-github-for-technical-writers-series/part-6-repo-architecture/">
+      
+      
+        <link rel="prev" href="../part-5-cicd-pipelines/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Part 6: Documentation Architecture - Git & GitHub for Technical Writers</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/brand.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent="custom">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#part-6-documentation-architecture-for-technical-writers" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Git &amp; GitHub for Technical Writers" class="md-header__button md-logo" aria-label="Git & GitHub for Technical Writers" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Git & GitHub for Technical Writers
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Part 6: Documentation Architecture
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Douglasebhoman/git-github-for-technical-writers-series" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Douglasebhoman/git-github-for-technical-writers-series
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Git &amp; GitHub for Technical Writers" class="md-nav__button md-logo" aria-label="Git & GitHub for Technical Writers" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Git & GitHub for Technical Writers
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Douglasebhoman/git-github-for-technical-writers-series" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Douglasebhoman/git-github-for-technical-writers-series
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../introduction/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part-1-git-basics/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 1: Git Basics
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part-2-git-vs-github/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 2: Git vs GitHub
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part-3-versioning/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 3: Managing Versions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part-4-pull-requests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 4: Pull Requests
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../part-5-cicd-pipelines/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 5: CI/CD Pipelines
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6: Documentation Architecture
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Part 6: Documentation Architecture
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-structure-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why structure matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-as-an-information-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation as an information system
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-diataxis-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Diataxis framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Diataxis framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tutorials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tutorials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How-to guides
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concepts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-separation-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why separation matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structuring-a-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structuring a repository
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#single-source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single Source of Truth
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-readme-as-the-front-door" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The README as the front door
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-improves-collaboration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture improves collaboration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-enables-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture enables automation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-exercise-audit-your-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical exercise: audit your documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-documentation-lifecycle-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The documentation lifecycle: complete
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-to-do-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to do next
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#why-structure-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why structure matters
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-as-an-information-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation as an information system
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-diataxis-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Diataxis framework
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Diataxis framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#tutorials" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tutorials
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#how-to-guides" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How-to guides
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reference
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#concepts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Concepts
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#why-separation-matters" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Why separation matters
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structuring-a-repository" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Structuring a repository
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#single-source-of-truth" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Single Source of Truth
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-readme-as-the-front-door" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The README as the front door
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-improves-collaboration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture improves collaboration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-enables-automation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Architecture enables automation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#practical-exercise-audit-your-documentation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Practical exercise: audit your documentation
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-documentation-lifecycle-complete" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The documentation lifecycle: complete
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-to-do-next" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What to do next
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="part-6-documentation-architecture-for-technical-writers">Part 6: Documentation Architecture for Technical Writers<a class="headerlink" href="#part-6-documentation-architecture-for-technical-writers" title="Permanent link">&para;</a></h1>
+<p>This page is part of the Git and GitHub for Technical Writers series. If you are joining mid-series, start at the <a href="../">Home page</a>.</p>
+<hr />
+<p>With CI/CD pipelines in place, documentation is written, versioned, validated, and deployed automatically. The operational infrastructure is complete.</p>
+<p>But one critical layer still remains.</p>
+<p>Even with perfect commits, clean Pull Requests, and automated deployment, documentation can still fail if the information itself is poorly structured.</p>
+<p>This is where documentation architecture becomes essential.</p>
+<p>Documentation is not just content. It is an information system. And like any system, it must be designed to scale.</p>
+<hr />
+<h2 id="why-structure-matters">Why structure matters<a class="headerlink" href="#why-structure-matters" title="Permanent link">&para;</a></h2>
+<p>In the early stages of a project, documentation often begins simply. A few guides. A quick start page. Some API notes.</p>
+<p>But as the product grows, something predictable happens.</p>
+<p>Pages accumulate. Topics overlap. Old information remains alongside new information. Guides multiply without clear ownership.</p>
+<p>This gradual decay is called documentation entropy.</p>
+<p>Symptoms include:</p>
+<ul>
+<li>Duplicate pages explaining the same concept</li>
+<li>Outdated tutorials that no longer match the product</li>
+<li>Conflicting instructions across different guides</li>
+<li>Navigation that feels chaotic rather than intentional</li>
+</ul>
+<p>Developers have a familiar term for this in codebases: technical debt. Documentation suffers from something similar: information debt.</p>
+<p>The root cause is rarely bad intentions. It is missing architecture.</p>
+<p>Information debt compounds the same way technical debt does. The longer it goes unaddressed, the more expensive it becomes to fix.</p>
+<hr />
+<h2 id="documentation-as-an-information-system">Documentation as an information system<a class="headerlink" href="#documentation-as-an-information-system" title="Permanent link">&para;</a></h2>
+<p>When documentation is treated as a simple collection of pages, it becomes difficult to maintain.</p>
+<p>When it is treated as an information system, the focus shifts from writing individual pages to designing how information is organised and accessed.</p>
+<p>A well-structured documentation system supports four fundamental needs:</p>
+<ul>
+<li>Discoverability: users must be able to find information quickly</li>
+<li>Navigation: readers should move through documentation logically</li>
+<li>Task completion: documentation must guide users toward real outcomes</li>
+<li>Learning progression: readers should be able to deepen their understanding over time</li>
+</ul>
+<p>These goals cannot be achieved through writing quality alone. They require intentional architecture.</p>
+<p>A well-written page inside a poorly designed system is still a page readers cannot find.</p>
+<hr />
+<h2 id="the-diataxis-framework">The Diataxis framework<a class="headerlink" href="#the-diataxis-framework" title="Permanent link">&para;</a></h2>
+<p>One of the most widely adopted models for structuring documentation is the Diataxis framework. It separates documentation into four distinct types, each serving a different reader need.</p>
+<table>
+<thead>
+<tr>
+<th>Documentation type</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tutorials</td>
+<td>Teach beginners step-by-step</td>
+</tr>
+<tr>
+<td>How-to guides</td>
+<td>Help users accomplish specific tasks</td>
+</tr>
+<tr>
+<td>Reference</td>
+<td>Provide precise technical details</td>
+</tr>
+<tr>
+<td>Concepts</td>
+<td>Explain how the system works</td>
+</tr>
+</tbody>
+</table>
+<p><img alt="The Diataxis framework, a two-by-two grid showing Tutorials, Concepts, How-To Guides, and Reference organised by practical and theoretical axes." src="../images/diataxis-framework-diagram.svg" /></p>
+<hr />
+<h3 id="tutorials">Tutorials<a class="headerlink" href="#tutorials" title="Permanent link">&para;</a></h3>
+<p>Help readers learn by doing.</p>
+<p><strong>Example:</strong> "Build your first API request in five minutes."</p>
+<p>A tutorial is not concerned with completeness. It is concerned with forward momentum. The reader should finish having done something and feeling capable of continuing.</p>
+<hr />
+<h3 id="how-to-guides">How-to guides<a class="headerlink" href="#how-to-guides" title="Permanent link">&para;</a></h3>
+<p>Help readers solve specific practical problems.</p>
+<p><strong>Example:</strong> "How to configure OAuth authentication."</p>
+<p>A how-to guide assumes the reader already has basic knowledge. It does not teach fundamentals. It solves a defined problem efficiently.</p>
+<hr />
+<h3 id="reference">Reference<a class="headerlink" href="#reference" title="Permanent link">&para;</a></h3>
+<p>Provides exact technical information.</p>
+<p><strong>Example:</strong> API endpoints, parameters, command syntax, configuration options.</p>
+<p>Reference documentation is consulted, not read from start to finish. Precision and completeness matter more than narrative flow.</p>
+<hr />
+<h3 id="concepts">Concepts<a class="headerlink" href="#concepts" title="Permanent link">&para;</a></h3>
+<p>Explains how the system works internally.</p>
+<p><strong>Example:</strong> "How authentication works in our API architecture."</p>
+<p>Conceptual documentation gives readers the mental model they need to use the product confidently. It answers the question: how does this work and why?</p>
+<hr />
+<h3 id="why-separation-matters">Why separation matters<a class="headerlink" href="#why-separation-matters" title="Permanent link">&para;</a></h3>
+<p>These documentation types should not be mixed together.</p>
+<p>A tutorial should not suddenly become a reference manual. A reference page should not read like a tutorial.</p>
+<p>Each serves a different reader mindset. When readers arrive at a page, they come with a specific intent. If the page serves a different intent, they leave without completing their task.</p>
+<p>Architecture makes those boundaries clear and keeps readers oriented.</p>
+<p>Without those boundaries, documentation grows in the wrong directions. Tutorials become reference manuals. Reference pages become tutorials. Readers arrive at the right page for the wrong reason and leave without completing their task.</p>
+<hr />
+<h2 id="structuring-a-repository">Structuring a repository<a class="headerlink" href="#structuring-a-repository" title="Permanent link">&para;</a></h2>
+<p>In Docs-as-Code environments, documentation lives inside the same repository as the product. A clear structure based on the Diataxis framework looks like this:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>docs/
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a> ├── tutorials/
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a> │    └── getting-started.md
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a> ├── guides/
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a> │    └── configure-authentication.md
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a> ├── reference/
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a> │    └── api-endpoints.md
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a> ├── concepts/
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a> │    └── how-authentication-works.md
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a> ├── snippets/
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a> │    └── auth-prerequisites.md
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a> └── images/
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>      └── architecture-diagram.png
+</code></pre></div>
+<p>This layout provides several benefits:</p>
+<ul>
+<li>Writers know where new documentation belongs</li>
+<li>Reviewers understand the purpose of each page before reading it</li>
+<li>Documentation site generators can build navigation automatically</li>
+<li>Readers can locate the type of information they need without searching</li>
+</ul>
+<p>Structure does not constrain documentation. It makes documentation possible to maintain.</p>
+<hr />
+<h2 id="single-source-of-truth">Single Source of Truth<a class="headerlink" href="#single-source-of-truth" title="Permanent link">&para;</a></h2>
+<p>One of the core principles in software engineering is DRY, short for Don't Repeat Yourself. The same principle applies to documentation.</p>
+<p>In large documentation sets, certain content appears repeatedly: warning notices, prerequisites, configuration steps, code snippets. When this content is copied manually, a predictable problem follows. The product changes, one copy gets updated, and the others do not. Readers encounter conflicting information depending on which page they land on.</p>
+<p>Good architecture solves this through content inclusions, writing content once and referencing it from multiple pages.</p>
+<p><strong>Example using the MkDocs snippets extension:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>&lt;!-- In guides/configure-authentication.md --&gt;
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="gu">## Prerequisites</span>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>&lt;!-- In tutorials/getting-started.md --&gt;
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="gu">## Before You Begin</span>
+</code></pre></div>
+<p>Both pages display the same prerequisites block. When the prerequisites change, you update one file and every page that references it updates automatically.</p>
+<p>This is one of the most practical benefits of treating documentation as code.</p>
+<p>One source of truth means one place to fix when the product changes. That is what makes documentation maintainable at scale.</p>
+<hr />
+<h2 id="the-readme-as-the-front-door">The README as the front door<a class="headerlink" href="#the-readme-as-the-front-door" title="Permanent link">&para;</a></h2>
+<p>The <code>README.md</code> at the root of your <code>docs/</code> folder is the most important piece of documentation architecture for contributors.</p>
+<p>For readers, the homepage of your documentation site is the entry point. For writers and contributors, the <code>docs/README.md</code> is the front door to the documentation system itself.</p>
+<p>A well-written docs README answers four questions:</p>
+<ol>
+<li>What is the structure of this repository?</li>
+<li>Where does new documentation belong?</li>
+<li>What conventions does this project follow?</li>
+<li>How do I contribute?</li>
+</ol>
+<p><strong>Example:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="gh"># Documentation</span>
+<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+<a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>This folder contains all documentation for [Product Name].
+<a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>
+<a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="gu">## Folder Structure</span>
+<a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
+<a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>| Folder | Purpose |
+<a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>|--------|---------|
+<a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>| <span class="sb">`tutorials/`</span> | Step-by-step guides for new users |
+<a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>| <span class="sb">`guides/`</span> | Task-focused how-to guides |
+<a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>| <span class="sb">`reference/`</span> | API and configuration reference |
+<a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>| <span class="sb">`concepts/`</span> | Explanations of how the system works |
+<a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>| <span class="sb">`snippets/`</span> | Reusable content blocks |
+<a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>| <span class="sb">`images/`</span> | Screenshots and diagrams |
+<a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
+<a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="gu">## Contributing</span>
+<a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>
+<a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>Before adding a new page, identify which category it belongs to.
+<a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>See [<span class="nt">CONTRIBUTING.md</span>](<span class="na">../CONTRIBUTING.md</span>) for full guidelines.
+</code></pre></div>
+<p>This file costs very little to write. For anyone joining the project later, an engineer contributing their first documentation page or a new technical writer onboarding, it is the difference between confidence and confusion.</p>
+<p>A team that knows where things belong does not need to ask. That question never reaches a Pull Request.</p>
+<hr />
+<h2 id="architecture-improves-collaboration">Architecture improves collaboration<a class="headerlink" href="#architecture-improves-collaboration" title="Permanent link">&para;</a></h2>
+<p>When structure exists:</p>
+<ul>
+<li>Engineers know where to contribute documentation</li>
+<li>Reviewers understand the context of a page before reading it</li>
+<li>Writers maintain consistency across large documentation sets</li>
+</ul>
+<p>Without structure, teams debate basic questions before any writing begins: where should this page live, is this a guide or a tutorial, should this replace another page?</p>
+<p>Architecture answers those questions before they arise. A structured repository functions as a shared agreement and that agreement reduces friction across every Pull Request.</p>
+<p>The best Pull Request review is one where nobody has to debate where the page belongs or what it is for. Architecture makes that the default.</p>
+<hr />
+<h2 id="architecture-enables-automation">Architecture enables automation<a class="headerlink" href="#architecture-enables-automation" title="Permanent link">&para;</a></h2>
+<p>Documentation tools such as MkDocs, Docusaurus, Sphinx, and Hugo depend on structured directories to generate navigation, build search indexes, validate internal links, and render documentation sites correctly.</p>
+<p><strong>Example using MkDocs navigation configuration:</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">nav</span><span class="p">:</span>
+<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Home</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">index.md</span>
+<a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Tutorials</span><span class="p">:</span>
+<a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Getting Started</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">tutorials/getting-started.md</span>
+<a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">How-To Guides</span><span class="p">:</span>
+<a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Configure Authentication</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">guides/configure-authentication.md</span>
+<a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Reference</span><span class="p">:</span>
+<a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">API Endpoints</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">reference/api-endpoints.md</span>
+<a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Concepts</span><span class="p">:</span>
+<a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">How Authentication Works</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">concepts/how-authentication-works.md</span>
+</code></pre></div>
+<p>When the directory structure matches the navigation configuration, the pipeline builds correctly every time. When structure is inconsistent, automation breaks. Missing files, broken links, and failed builds become routine problems rather than rare exceptions.</p>
+<p>Structure is not bureaucracy. It is the condition under which automation works reliably.</p>
+<hr />
+<h2 id="practical-exercise-audit-your-documentation">Practical exercise: audit your documentation<a class="headerlink" href="#practical-exercise-audit-your-documentation" title="Permanent link">&para;</a></h2>
+<p>Before restructuring a project, understand the state of what already exists.</p>
+<p><strong>Step 1: List every page in your documentation.</strong></p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>find<span class="w"> </span>docs/<span class="w"> </span>-name<span class="w"> </span><span class="s2">&quot;*.md&quot;</span><span class="w"> </span><span class="p">|</span><span class="w"> </span>sort
+</code></pre></div>
+<p><strong>Step 2: Categorise each page using the Diataxis framework.</strong></p>
+<p>For each file, ask: is this a tutorial, a how-to guide, a reference page, or a conceptual explanation? If it is difficult to categorise, the page may be mixing purposes.</p>
+<p><strong>Step 3: Identify gaps and overlaps.</strong></p>
+<p>Look for categories with no pages (a gap), multiple pages covering the same topic (an overlap), and pages that belong to more than one category (a mixing problem).</p>
+<p><strong>Step 4: Propose a new structure.</strong></p>
+<p>Sketch a folder structure that reflects the Diataxis framework. You do not need to migrate everything immediately. Architecture improvements can be made incrementally, one Pull Request at a time. A good-enough structure that exists is always more useful than a perfect structure that does not.</p>
+<p><strong>A note on internal linking:</strong></p>
+<p>When you restructure a repository, internal links can break. Use relative links to make documentation resilient to restructuring:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&lt;!-- Fragile: breaks if the file moves --&gt;
+<a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>[<span class="nt">Authentication Guide</span>](<span class="na">/docs/guides/authentication.md</span>)
+<a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+<a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>&lt;!-- Resilient: works relative to the current file location --&gt;
+<a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>[<span class="nt">Authentication Guide</span>](<span class="na">../guides/authentication.md</span>)
+</code></pre></div>
+<p>Many static site generators including MkDocs with the <code>--strict</code> flag will catch broken internal links during the build. This means restructuring errors surface in the pipeline before they reach production rather than after. The link validation covered in Part 5 is your safety net when restructuring.</p>
+<hr />
+<h2 id="the-documentation-lifecycle-complete">The documentation lifecycle: complete<a class="headerlink" href="#the-documentation-lifecycle-complete" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>System</th>
+<th>Responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Writing</td>
+<td>Markdown</td>
+<td>Human, creation and judgement</td>
+</tr>
+<tr>
+<td>Versioning</td>
+<td>Git</td>
+<td>Human, intent and history</td>
+</tr>
+<tr>
+<td>Validation</td>
+<td>Pull Request</td>
+<td>Human and Machine, review and checks</td>
+</tr>
+<tr>
+<td>Build</td>
+<td>CI Pipeline</td>
+<td>Machine, compilation</td>
+</tr>
+<tr>
+<td>Test</td>
+<td>CI Pipeline</td>
+<td>Machine, quality enforcement</td>
+</tr>
+<tr>
+<td>Deploy</td>
+<td>CD Pipeline</td>
+<td>Machine, delivery</td>
+</tr>
+<tr>
+<td>Architecture</td>
+<td>Information Design</td>
+<td>Human, structure and intent</td>
+</tr>
+</tbody>
+</table>
+<p>Automation handles the operational steps reliably and at scale. But architecture remains a human responsibility. Designing how information is structured requires judgement, experience, and an understanding of reader needs. No pipeline can substitute for that.</p>
+<hr />
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link">&para;</a></h2>
+<ul>
+<li>Documentation entropy is the gradual decay of structure, the documentation equivalent of technical debt</li>
+<li>The Diataxis framework organises documentation into four types: Tutorials, How-To Guides, Reference, and Concepts. Each serves a different reader need.</li>
+<li>A structured repository reduces ambiguity for writers, reviewers, and readers alike</li>
+<li>The DRY principle prevents content duplication through inclusions and snippets</li>
+<li>The docs README serves as the front door for contributors, mapping the folder structure and explaining conventions</li>
+<li>Relative links reduce the maintenance cost of restructuring</li>
+<li>Architecture is what enables automation to work reliably at scale</li>
+</ul>
+<hr />
+<hr />
+<h2 id="what-to-do-next">What to do next<a class="headerlink" href="#what-to-do-next" title="Permanent link">&para;</a></h2>
+<p>You have completed the Git and GitHub for Technical Writers series. You now have the full picture, from a single <code>git commit</code> to a structured, automated, architecturally sound documentation system.</p>
+<p>If you are ready to apply these principles to your own documentation, the Documentation Audit is where to start. Six questions, sixty seconds, and a scored report that tells you exactly where your system stands across connectivity, architecture, and ownership.</p>
+<p>Run the free audit at <a href="https://douglasebhoman.com">douglasebhoman.com</a> or reach out directly at <a href="mailto:douglas@douglasebhoman.com">douglas@douglasebhoman.com</a> if you want a full engagement.</p>
+<p>Return to the <a href="../">Home page</a> to review the complete series.</p>
+<hr />
+<p><em>Written by Douglas Ebhoman, a technical writer based in Prague who builds documentation systems for DevTools and SaaS companies.</em>
+<em><a href="https://douglasebhoman.com">douglasebhoman.com</a> · <a href="https://linkedin.com/in/douglas-ebhoman-757329289">LinkedIn</a></em></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Footer" >
+        
+          
+          <a href="../part-5-cicd-pipelines/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Part 5: CI/CD Pipelines">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              <div class="md-ellipsis">
+                Part 5: CI/CD Pipelines
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      © 2026 Douglas Ebhoman · <a href="https://douglasebhoman.com">douglasebhoman.com</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/in/douglas-ebhoman-757329289" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/Douglasebhoman" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://douglasebhoman.com" target="_blank" rel="noopener" title="douglasebhoman.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M351.9 280H161c2.9 64.5 17.2 123.9 37.5 167.4 11.4 24.5 23.7 41.8 35.1 52.4 11.2 10.5 18.9 12.2 22.9 12.2s11.7-1.7 22.9-12.2c11.4-10.6 23.7-28 35.1-52.4 20.3-43.5 34.6-102.9 37.5-167.4zm-191-48h190.9c-2.8-64.5-17.1-123.9-37.4-167.4-11.4-24.4-23.7-41.8-35.1-52.4C268.1 1.7 260.4 0 256.4 0s-11.7 1.7-22.9 12.2c-11.4 10.6-23.7 28-35.1 52.4-20.3 43.5-34.6 102.9-37.5 167.4m-48 0c3.5-85.6 25.6-165.1 57.9-217.3C78.7 47.3 10.9 131.2 1.5 232zM1.5 280c9.4 100.8 77.2 184.7 169.3 217.3-32.3-52.2-54.4-131.7-57.9-217.3zm398.4 0c-3.5 85.6-25.6 165.1-57.9 217.3 92.1-32.7 159.9-116.5 169.3-217.3zm111.4-48C501.9 131.2 434.1 47.3 342 14.7c32.3 52.2 54.4 131.7 57.9 217.3z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "..", "features": ["navigation.instant", "navigation.top", "navigation.sections", "navigation.footer", "search.highlight", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
