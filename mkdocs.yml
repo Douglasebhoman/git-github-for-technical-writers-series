@@ -32,12 +32,12 @@ extra_css:
 nav:
   - Home: index.md
   - Introduction: introduction.md
-  - Part 1: Git Basics: part-1-git-basics.md
-  - Part 2: Git vs GitHub: part-2-git-vs-github.md
-  - Part 3: Managing Versions: part-3-versioning.md
-  - Part 4: Pull Requests: part-4-pull-requests.md
-  - Part 5: CI/CD Pipelines: part-5-cicd-pipelines.md
-  - Part 6: Documentation Architecture: part-6-repo-architecture.md
+  - "Part 1: Git Basics": part-1-git-basics.md
+  - "Part 2: Git vs GitHub": part-2-git-vs-github.md
+  - "Part 3: Managing Versions": part-3-versioning.md
+  - "Part 4: Pull Requests": part-4-pull-requests.md
+  - "Part 5: CI/CD Pipelines": part-5-cicd-pipelines.md
+  - "Part 6: Documentation Architecture": part-6-repo-architecture.md
 
 markdown_extensions:
   - admonition
