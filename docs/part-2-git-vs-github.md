@@ -1,80 +1,67 @@
-# Part 2: Git vs GitHub — Understanding the Documentation Workflow
+# Part 2: Git vs GitHub
 
-**Series:** Git & GitHub for Technical Writers
-**Status:** ✅ Published
-**Hashnode:** [Read on Hashnode](https://git-and-github-for-technical-writers.hashnode.dev/git-vs-github-for-technical-writers-understanding-the-documentation-workflow)
+This page is part of the Git and GitHub for Technical Writers series. If you are joining mid-series, start at the [Home page](index.md).
 
 ---
 
-## Overview
-
-In Part 1, we covered Git fundamentals — how it tracks changes, records commits, and allows you to work safely on your local machine.
-
-This article moves from local version control to collaborative workflow.
-
-By the end of this article you will understand:
-
-- The precise difference between Git and GitHub
-- How documentation moves from private draft to shared production
-- The four-phase workflow technical writers follow in Docs-as-Code environments
-- The commands that connect your local machine to your team
-
----
-
-## The Problem This Article Solves
-
-You can write clean commits.
-You can create organised branches.
-You can maintain a complete local history.
+You can write clean commits. You can create organised branches. You can maintain a complete local history.
 
 But if your documentation never leaves your laptop, collaboration never begins.
 
-This is where GitHub enters the picture.
-
-Understanding the difference between Git and GitHub is not about comparing tools. It is about understanding how documentation moves from private draft to shared production.
+This is where GitHub enters the picture. Understanding the difference between Git and GitHub is not about comparing tools. It is about understanding how documentation moves from private draft to shared production.
 
 ---
 
-## Git vs GitHub — The Clear Distinction
+## Why local version control is not enough
+
+Git gives you a complete, recoverable history of your documentation on your machine. That is powerful, but it is also private.
+
+The moment you need a colleague to review a change, a developer to approve a technical claim, or a CI/CD pipeline to publish your work automatically, you need something beyond your local machine.
+
+That something is GitHub.
+
+---
+
+## Git vs GitHub: the clear distinction
 
 | Function | Git | GitHub |
 |----------|-----|--------|
-| Tracks file changes | ✔ | |
-| Records version history | ✔ | |
-| Works offline | ✔ | |
-| Stores repository online | | ✔ |
-| Enables team collaboration | | ✔ |
-| Manages Pull Requests | | ✔ |
-| Provides review tools | | ✔ |
+| Tracks file changes | Yes | |
+| Records version history | Yes | |
+| Works offline | Yes | |
+| Stores repository online | | Yes |
+| Enables team collaboration | | Yes |
+| Manages Pull Requests | | Yes |
+| Provides review tools | | Yes |
 
-Git manages change history on your local machine.
-GitHub manages team workflow in the cloud.
+Git manages change history on your local machine. GitHub manages team workflow in the cloud.
 
 Both are necessary in a professional documentation workflow. Git can exist without GitHub. GitHub cannot exist without Git.
 
+> **Note:** Google Docs also tracks changes, so the distinction is worth making explicit. Git tracks changes atomically across an entire repository of files. Every change to every file is recorded in a named commit, with branching, offline capability, and a structured review process. Google Docs tracks edits to a single document in a linear history with no concept of a repository, branching, or structured approval. These are not the same kind of version control.
+
 ---
 
-## The Documentation Workflow: From Laptop to Live
+## The documentation workflow: from laptop to live
 
 This is the practical sequence technical writers follow in Docs-as-Code environments. Each phase has a clear purpose and a defined boundary.
 
 ---
 
-### Phase 1 — Local Drafting
+### Phase 1: Local drafting
 
 You begin on your local machine.
 
 ```bash
-# Edit your Markdown files, then stage and commit your changes
 git add filename.md
 git commit -m "Add authentication section to API quickstart guide"
 ```
 
-At this stage, your work is entirely private. No one else can see it. This is your structured drafting environment — version-controlled and recoverable at any point.
+At this stage, your work is entirely private. No one else can see it. This is your structured drafting environment, version-controlled and recoverable at any point.
 
 ---
 
-### Phase 2 — Push to GitHub
+### Phase 2: Push to GitHub
 
 When you are ready to share your work, push your branch to the remote repository:
 
@@ -84,42 +71,29 @@ git push origin branch-name
 
 > **What `git push` does:** It uploads the commits from your local branch to the matching branch on GitHub, making your work visible to the rest of your team for the first time.
 
-After pushing:
-
-- Your team can see your branch
-- Your changes are backed up online
-- Collaboration becomes possible
-
-Your documentation has moved from local draft to shared workspace.
+After pushing, your team can see your branch, your changes are backed up online, and collaboration becomes possible. Your documentation has moved from local draft to shared workspace.
 
 ---
 
-### Phase 3 — Pull Request and Review
+### Phase 3: Pull Request and review
 
-A **Pull Request (PR)** is a formal proposal to merge your branch into the `main` version of the documentation. This is where GitHub becomes essential to the workflow.
+A Pull Request is a formal proposal to merge your branch into the `main` version of the documentation. This is where GitHub becomes essential to the workflow.
 
-Inside a Pull Request, your team can:
+Inside a Pull Request, your team can view the Diff, leave comments on specific lines, suggest edits directly in the file, and approve the changes or request revisions.
 
-- View the **Diff** — a line-by-line comparison where additions appear in green and deletions in red
-- Leave comments on specific lines
-- Suggest edits directly in the file
-- Approve the changes or request revisions
+> **What the Diff is:** When you open a Pull Request on GitHub, the Diff appears automatically under the Files changed tab. It shows a line-by-line comparison where additions appear in green and deletions in red.
 
 The Diff is particularly powerful for documentation review. It isolates exactly what changed, which allows reviewers to focus on the delta rather than rereading the entire document.
 
-For technical writers, this replaces the cycle of emailing documents back and forth. Discussion happens directly around the content — transparently, traceably, and permanently recorded in the repository history.
+For technical writers, this replaces the cycle of emailing documents back and forth. Discussion happens directly around the content, transparently, traceably, and permanently recorded in the repository history.
 
 ---
 
-### Phase 4 — Merge to Main
+### Phase 4: Merge to main
 
 Once a Pull Request is reviewed and approved, it is merged into the `main` branch.
 
-At this point:
-
-- Your changes become part of the official documentation
-- The repository history updates permanently
-- The team works from the new version going forward
+At this point, your changes become part of the official documentation, the repository history updates permanently, and the team works from the new version going forward.
 
 In many Docs-as-Code environments, merging to `main` automatically triggers a CI/CD pipeline that rebuilds and publishes the live documentation site. Merge often equals publish.
 
@@ -131,7 +105,7 @@ Draft → Reviewed → Approved → Production
 
 ---
 
-## The End-to-End Workflow
+## The end-to-end workflow
 
 ```
 Edit → Commit → Push → Pull Request → Review → Merge
@@ -148,18 +122,9 @@ Edit → Commit → Push → Pull Request → Review → Merge
 
 ---
 
-## Why This Workflow Matters
+## Why this workflow matters
 
-Before Git and GitHub workflows, documentation commonly lived in shared drives, email threads, and Google Docs with unclear version history.
-
-The result was predictable:
-
-- Conflicting versions with no clear source of truth
-- Approvals that were verbal or buried in email chains
-- Edits lost between versions
-- Persistent confusion about what was final
-
-With Git and GitHub:
+Before Git and GitHub, documentation commonly lived in shared drives, email threads, and Google Docs with unclear version history.
 
 | Problem | How Git and GitHub solve it |
 |---------|----------------------------|
@@ -172,31 +137,29 @@ The result is documentation that is controlled, traceable, and intentional at ev
 
 ---
 
-## Essential Commands for This Workflow
+## Essential commands for this workflow
 
-### Pull the Latest Version
+**Pull the latest version**
 
 ```bash
 git pull
 ```
 
-> **What `git pull` does:** It downloads the latest commits from the remote repository on GitHub and merges them into your current local branch. Always run this before starting new work to ensure you are working from the most current version of the documentation.
+Downloads the latest commits from the remote repository and merges them into your current local branch. Always run this before starting new work to ensure you are working from the most current version of the documentation.
 
 ---
 
-### Create a New Branch
+**Create a new branch**
 
 ```bash
 git checkout -b feature/update-api-guide
 ```
 
-> **What this does:** `git checkout` switches branches. The `-b` flag creates a new branch before switching to it. The name after `-b` is your branch name — use something descriptive that identifies the work you are doing.
-
-Never commit directly to `main`. Always create a branch for new work.
+`git checkout` switches branches. The `-b` flag creates a new branch before switching to it. Use a descriptive name that identifies the work you are doing. Never commit directly to `main`.
 
 ---
 
-### Push a Branch to GitHub
+**Push a branch to GitHub**
 
 ```bash
 git push origin branch-name
@@ -206,17 +169,17 @@ Uploads your committed changes to GitHub. Replace `branch-name` with the name of
 
 ---
 
-### Check What Has Changed
+**Check what has changed**
 
 ```bash
 git status
 ```
 
-Run this before every `git add` and before every `git commit`. It tells you exactly what is modified, what is staged, and what is untracked — without changing anything.
+Run this before every `git add` and before every `git commit`. It tells you exactly what is modified, what is staged, and what is untracked, without changing anything.
 
 ---
 
-## Common Mistakes and How to Avoid Them
+## Common mistakes and how to avoid them
 
 | Mistake | Consequence | How to avoid it |
 |---------|-------------|-----------------|
@@ -229,22 +192,19 @@ Run this before every `git add` and before every `git commit`. It tells you exac
 
 ## Summary
 
-- **Git** manages version history locally — commits, branches, and change records on your machine
-- **GitHub** manages collaboration in the cloud — storage, review, and team workflow
-- Documentation moves through four phases: **Draft → Reviewed → Approved → Production**
-- The end-to-end sequence is: **Edit → Commit → Push → Pull Request → Review → Merge**
-- `git pull` retrieves the latest version from GitHub before you begin work
-- `git checkout -b branch-name` creates a new branch for safe, independent work
-- Pull Requests replace informal review cycles with a structured, traceable process
-- Merging to `main` is the publication step — in many environments it triggers automatic deployment
+Three things to take from this page:
+
+- **Git** manages version history locally. **GitHub** manages collaboration in the cloud. They are not the same tool and both are necessary.
+- Documentation moves through four phases: Draft, Reviewed, Approved, Production. Pull Requests are where the review phase happens.
+- Merging to `main` is the publication step. In many environments it triggers automatic deployment.
+
+The commands from Part 1 — `git add`, `git commit`, and `git push` — are the tools that move your work through phases one and two. GitHub handles phases three and four. Together they form one complete workflow.
 
 ---
 
-## Next in This Series
-
-→ [Part 3 — From Editing Files to Managing Versions](part-3-versioning.md)
+Move to [Part 3: Managing Versions](part-3-versioning.md) to continue.
 
 ---
 
-*Written by Douglas Ebhoman — Technical Writer & Documentation Specialist*
-*[LinkedIn](https://linkedin.com/in/douglas-ebhoman-757329289) · [Hashnode](https://git-and-github-for-technical-writers.hashnode.dev)*
+*Written by Douglas Ebhoman, a technical writer based in Prague who builds documentation systems for DevTools and SaaS companies.*
+*[douglasebhoman.com](https://douglasebhoman.com) · [LinkedIn](https://linkedin.com/in/douglas-ebhoman-757329289)*

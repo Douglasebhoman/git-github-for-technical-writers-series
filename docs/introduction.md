@@ -1,28 +1,22 @@
 # Introduction: Why Git and GitHub Matter for Technical Writers
 
-**Series:** Git & GitHub for Technical Writers
-**Status:** ✅ Published
-**Hashnode:** [Read on Hashnode](https://git-and-github-for-technical-writers.hashnode.dev)
+This is the introduction to Git and GitHub for Technical Writers, a six-part Docs-as-Code series. If you are new here, start at the [Home page](index.md).
 
 ---
 
-## The Problem This Series Solves
+If you do not understand the system that documentation moves through in a software development environment, you cannot contribute to it effectively. You cannot review a Pull Request, interpret a pipeline error, or understand why your changes are not live yet.
 
-Most technical writers learn their craft in tools built around documents — Microsoft Word, Google Docs, Confluence, Notion.
+Most technical writers learn their craft in tools built around documents. Microsoft Word, Google Docs, Confluence, Notion. These tools are designed around a simple model: one file, one author, one version at a time.
 
-These tools are designed around a simple model: one file, one author, one version at a time.
+That model breaks down the moment you enter a software team.
 
-That model breaks down the moment you enter a software development environment.
-
-In a software team, documentation does not live in a shared Google Doc. It lives in a **repository** — the same place the code lives. It is edited in plain text. It is reviewed through a structured approval process. It is deployed automatically to a live website.
-
-If you do not understand the system that documentation moves through in these environments, you cannot contribute to it effectively. You cannot review a Pull Request, interpret a pipeline error, or understand why your changes are not live yet.
+In a software team, documentation does not live in a shared Google Doc. It lives in a repository, the same place the code lives. It is edited in plain text. It is reviewed through a structured approval process. It is deployed automatically to a live website.
 
 This series exists to close that gap.
 
 ---
 
-## What Git and GitHub Are — In One Paragraph Each
+## What Git and GitHub are
 
 **Git** is a version control system. It records every change made to a set of files, who made it, when, and why. It allows multiple people to work on the same document simultaneously without overwriting each other. It allows you to return to any previous state of a file at any point. It is the foundation of almost every professional documentation workflow in software.
 
@@ -32,7 +26,7 @@ Git is the engine. GitHub is the workspace.
 
 ---
 
-## What This Series Does Not Assume
+## What this series does not assume
 
 You do not need to know how to code.
 
@@ -40,34 +34,34 @@ You do not need prior experience with the command line.
 
 You do not need to have used Git or GitHub before.
 
-Each article introduces concepts in plain language before showing how they work in practice. Technical terms are explained when they first appear and collected in a glossary at the end of each article.
+Each part introduces concepts in plain language before showing how they work in practice. Technical terms are explained when they first appear and collected in a glossary at the end of each part.
 
 ---
 
-## Key Terms Introduced in This Series
+## Key terms introduced in this series
 
-These terms appear throughout the series. This is not a deep explanation of each — that happens in the articles. This is enough to orient you before you begin.
+These terms appear throughout the series. This is not a deep explanation of each — that happens in the parts themselves. This is enough to orient you before you begin.
 
 | Term | What it means at this stage |
 |------|-----------------------------|
-| **Repository** | A folder that Git tracks — contains your files and their full change history |
-| **Commit** | A saved snapshot of your changes, with a message describing what changed |
-| **Branch** | A separate working copy of the repository — changes here don't affect the main version |
-| **Pull Request** | A proposal to merge your changes into the main version, subject to review |
-| **Merge** | Combining an approved branch into the main version |
-| **Pipeline** | An automated process that builds and publishes documentation after changes are merged |
+| **Repository** | A folder that Git tracks. Contains your files and their full change history. |
+| **Commit** | A saved snapshot of your changes, with a message describing what changed. |
+| **Branch** | A separate working copy of the repository. Changes here do not affect the main version. |
+| **Pull Request** | A proposal to merge your changes into the main version, subject to review. |
+| **Merge** | Combining an approved branch into the main version. |
+| **Pipeline** | An automated process that builds and publishes documentation after changes are merged. |
 
-You will encounter each of these in detail across Parts 1 through 5.
-
----
-
-## What to Read Next
-
-This introduction frames the *why*. The series begins the *how* in Part 1.
-
-→ [Part 1 — Git Basics for Technical Writers](part-1-git-basics.md)
+You will encounter each of these in detail across Parts 1 through 6.
 
 ---
 
-*Written by Douglas Ebhoman — Technical Writer & Documentation Specialist*
-*[LinkedIn](https://linkedin.com/in/douglas-ebhoman-757329289) · [Hashnode](https://git-and-github-for-technical-writers.hashnode.dev)*
+## What to read next
+
+This introduction frames the why. The series begins the how in Part 1.
+
+Move to [Part 1: Git Basics for Technical Writers](part-1-git-basics.md) to begin.
+
+---
+
+*Written by Douglas Ebhoman, a technical writer based in Prague who builds documentation systems for DevTools and SaaS companies.*
+*[douglasebhoman.com](https://douglasebhoman.com) · [LinkedIn](https://linkedin.com/in/douglas-ebhoman-757329289)*
